@@ -1,6 +1,6 @@
 <template>
    <div class="mz-footer">
-      mzcms 
+      @2023 power by mzcms
    </div>
 </template>
 
@@ -14,7 +14,7 @@
    align-items: center;
    width: 100%;
    height: 30px;
-   background: #000;
-   color: #fff;
+   background: #e2e2e2;
+   color: #000;
 }
 </style>

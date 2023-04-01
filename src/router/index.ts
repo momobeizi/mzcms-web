@@ -25,7 +25,25 @@ const router = createRouter({
         component: () => import('@/views/Dashboard/index.vue'),
         name: 'dashboard',
         meta: {
-          title: 'dashboard'
+          title: 'Dashboard'
+        }
+      }]
+    },
+    {
+      path: '/system',
+      component: () => import('@/views/Layout/index.vue'),
+      meta: {
+        title: '系统管理'
+      },
+      redirect: {
+        name: 'systemManage'
+      },
+      children: [{
+        path: '/systemManage',
+        component: () => import('@/views/SystemManage/index.vue'),
+        name: 'systemManage',
+        meta: {
+          title: '系统设置'
         }
       }]
     },
@@ -34,7 +52,8 @@ const router = createRouter({
       name: 'login',
       meta: {
         onWhiteList: true,
-        title: '登录'
+        title: '登录',
+        hidden: true
       },
       component: () => import('@/views/Login/index.vue')
     }

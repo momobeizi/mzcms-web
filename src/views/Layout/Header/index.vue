@@ -30,12 +30,13 @@ const changeMenuStatus = () => {
    padding: 0 16px;
 
    &-logo {
-      width: 110px;
+      width: 168px;
       height: 40px;
-
+      display: flex;
+      justify-content: center;
       img {
-         width: 100%;
-         height: auto;
+         width: auto;
+         height: 100%;
       }
    }
 

@@ -1,56 +1,18 @@
 <template>
-   <el-menu default-active="2" class="mz-menu" :collapse="system.menuStatus" @open="handleOpen" @close="handleClose">
-      <el-sub-menu index="1">
-         <template #title>
-            <el-icon>
-               <location />
-            </el-icon>
-            <span>Navigator One</span>
-         </template>
-         <el-menu-item-group>
-            <template #title><span>Group One</span></template>
-            <el-menu-item index="1-1">item one</el-menu-item>
-            <el-menu-item index="1-2">item two</el-menu-item>
-         </el-menu-item-group>
-         <el-menu-item-group title="Group Two">
-            <el-menu-item index="1-3">item three</el-menu-item>
-         </el-menu-item-group>
-         <el-sub-menu index="1-4">
-            <template #title><span>item four</span></template>
-            <el-menu-item index="1-4-1">item one</el-menu-item>
-         </el-sub-menu>
-      </el-sub-menu>
-      <el-menu-item index="2">
-         <el-icon><icon-menu /></el-icon>
-         <template #title>Navigator Two</template>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-         <el-icon>
-            <document />
-         </el-icon>
-         <template #title>Navigator Three</template>
-      </el-menu-item>
-      <el-menu-item index="4">
-         <el-icon>
-            <setting />
-         </el-icon>
-         <template #title>Navigator Four</template>
-      </el-menu-item>
+   <el-menu default-active="2" class="mz-menu" active-text-color="#ffd04b" background-color="#0c3d83" text-color="#fff"
+      :collapse="!system.menuStatus" @open="handleOpen" @close="handleClose">
+      <menu-item :route="route" v-for="(route, index) in routes" :key="index"></menu-item>
    </el-menu>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import {
-   Document,
-   Menu as IconMenu,
-   Location,
-   Setting,
-} from '@element-plus/icons-vue'
+import menuItem from './menuItem.vue';
 import { useSystemStore } from '@/stores/system'
+import router from '@/router/index'
 const system = useSystemStore();
+const { routes } = router.options
+console.log(routes)
 
- 
 const handleOpen = (key: string, keyPath: string[]) => {
    console.log(key, keyPath)
 }
@@ -59,8 +21,13 @@ const handleClose = (key: string, keyPath: string[]) => {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .mz-menu {
-   height: 100%;
+   &:not(.el-menu--collapse) {
+      flex-shrink: 0;
+      width: 200px !important;
+      height: 100%;
+      min-height: 400px;
+   }
 }
 </style>
