@@ -16,8 +16,18 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'dashboard',
-      component: () => import('@/views/Dashboard/index.vue')
+      component: () => import('@/views/Layout/index.vue'),
+      redirect: {
+        name: 'dashboard'
+      },
+      children: [{
+        path: '/dashboard',
+        component: () => import('@/views/Dashboard/index.vue'),
+        name: 'dashboard',
+        meta: {
+          title: 'dashboard'
+        }
+      }]
     },
     {
       path: '/login',
