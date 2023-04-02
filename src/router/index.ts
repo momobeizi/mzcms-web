@@ -26,7 +26,7 @@ const router = createRouter({
         name: 'dashboard',
         meta: {
           title: 'Dashboard',
-          icon: 'xitongguanli'
+          icon: 'dashboard'
         }
       }]
     },
@@ -35,7 +35,7 @@ const router = createRouter({
       component: () => import('@/views/Layout/index.vue'),
       meta: {
         title: '系统管理',
-        icon: 'xitongguanli'
+        icon: 'systemSetting'
       },
       redirect: {
         name: 'systemManage',
