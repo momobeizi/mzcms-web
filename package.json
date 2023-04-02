@@ -44,6 +44,7 @@
     "unplugin-auto-import": "^0.15.1",
     "unplugin-vue-components": "^0.24.1",
     "vite": "^4.1.4",
+    "vite-plugin-vue-setup-extend": "^0.4.0",
     "vitest": "^0.29.2",
     "vue-tsc": "^1.2.0"
   }

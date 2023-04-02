@@ -1,5 +1,5 @@
 <template>
-   <el-menu default-active="2" class="mz-menu" active-text-color="#ffd04b" background-color="#0c3d83" text-color="#fff"
+   <el-menu router default-active="2" class="mz-menu" active-text-color="#ffd04b" background-color="#0c3d83" text-color="#fff"
       :collapse="!system.menuStatus" @open="handleOpen" @close="handleClose">
       <menu-item :route="route" v-for="(route, index) in routes" :key="index"></menu-item>
    </el-menu>
@@ -11,7 +11,6 @@ import { useSystemStore } from '@/stores/system'
 import router from '@/router/index'
 const system = useSystemStore();
 const { routes } = router.options
-console.log(routes)
 
 const handleOpen = (key: string, keyPath: string[]) => {
    console.log(key, keyPath)

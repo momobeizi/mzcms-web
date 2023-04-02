@@ -25,7 +25,8 @@ const router = createRouter({
         component: () => import('@/views/Dashboard/index.vue'),
         name: 'dashboard',
         meta: {
-          title: 'Dashboard'
+          title: 'Dashboard',
+          icon: 'xitongguanli'
         }
       }]
     },
@@ -33,17 +34,19 @@ const router = createRouter({
       path: '/system',
       component: () => import('@/views/Layout/index.vue'),
       meta: {
-        title: '系统管理'
+        title: '系统管理',
+        icon: 'xitongguanli'
       },
       redirect: {
-        name: 'systemManage'
+        name: 'systemManage',
       },
       children: [{
         path: '/systemManage',
         component: () => import('@/views/SystemManage/index.vue'),
         name: 'systemManage',
         meta: {
-          title: '系统设置'
+          title: '系统设置',
+          icon: 'xitongguanli'
         }
       }]
     },

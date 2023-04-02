@@ -4,7 +4,7 @@
       <el-sub-menu :index="route.path" v-if="route?.meta?.title">
         <template #title>
           <el-icon>
-            <location />
+            <svg-icon :name="route.meta.icon"></svg-icon>
           </el-icon>
           <span>{{ route.meta.title }}</span>
         </template>
@@ -16,7 +16,7 @@
     </template>
     <el-menu-item v-else :index="route.path">
       <el-icon>
-        <location />
+        <svg-icon :name="route.meta.icon"></svg-icon>
       </el-icon>
       <template #title>{{ route.meta.title }}</template>
     </el-menu-item>
