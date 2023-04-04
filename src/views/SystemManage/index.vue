@@ -1,6 +1,6 @@
 <template>
     <div class="mz-footer">
-       @2023 power by mzcms
+       
     </div>
  </template>
  

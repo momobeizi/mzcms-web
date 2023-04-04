@@ -16,13 +16,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('@/views/Layout/index.vue'),
+      component: () => import('@/views/layout/index.vue'),
       redirect: {
         name: 'dashboard'
       },
       children: [{
         path: '/dashboard',
-        component: () => import('@/views/Dashboard/index.vue'),
+        component: () => import('@/views/dashboard/index.vue'),
         name: 'dashboard',
         meta: {
           title: 'Dashboard',
@@ -31,8 +31,28 @@ const router = createRouter({
       }]
     },
     {
+      path: '/category',
+      component: () => import('@/views/layout/index.vue'),
+      meta: {
+        title: '栏目管理',
+        icon: 'wdfl'
+      },
+      redirect: {
+        name: 'categoryManage',
+      },
+      children: [{
+        path: '/categoryManage',
+        component: () => import('@/views/categoryManage/index.vue'),
+        name: 'categoryManage',
+        meta: {
+          title: '栏目列表',
+          icon: 'wdfl'
+        }
+      }]
+    },
+    {
       path: '/system',
-      component: () => import('@/views/Layout/index.vue'),
+      component: () => import('@/views/layout/index.vue'),
       meta: {
         title: '系统管理',
         icon: 'systemSetting'
@@ -42,7 +62,7 @@ const router = createRouter({
       },
       children: [{
         path: '/systemManage',
-        component: () => import('@/views/SystemManage/index.vue'),
+        component: () => import('@/views/systemManage/index.vue'),
         name: 'systemManage',
         meta: {
           title: '系统设置',
@@ -58,7 +78,7 @@ const router = createRouter({
         title: '登录',
         hidden: true
       },
-      component: () => import('@/views/Login/index.vue')
+      component: () => import('@/views/login/index.vue')
     }
   ]
 })
