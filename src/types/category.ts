@@ -1,11 +1,11 @@
 export interface category {
-  id: string
-  parentId: string
-  name: string
-  keywords: string
-  url: string
-  enable: boolean
-  comments: string
-  createdAt: string
-  updatedAt: string
+  id?: string         // id
+  parentId: string    // 父级id
+  name: string        // 类别名称
+  keywords: string    // 关键字
+  url: string         // url
+  enable: boolean     // 是否启用
+  comments: string    // 描述
+  createdAt: string   // 创建时间
+  updatedAt: string   // 更新时间
 }
