@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login" :style="{ backgroundImage: `url(/images/login_bg.jpg)` }">
     <div class="login-con">
       <div class="system-title">
         欢迎使用mzcms
@@ -106,6 +106,7 @@ rememberPwd()
   height: 100%;
   position: relative;
   background-color: #141e47;
+  background-size: cover;
 
   .login-con {
     padding: 0 20px 20px;
