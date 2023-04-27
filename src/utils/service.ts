@@ -1,6 +1,6 @@
 import axios from 'axios'
 import router from '@/router'
-
+import { ElMessage } from 'element-plus'
  
 
 const service = axios.create({
@@ -28,13 +28,16 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response) => {
     console.log(response)
+    if(response.data.code===0){
+      return Promise.resolve(response.data)
+    }
     // 400登录失效
     if (response.data.code === 400) {
-      console.log(router)
       router.push({name:'login'})
       return Promise.reject(response.data)
     } else {
-      return response.data
+      ElMessage.error(response.data.message)
+      return Promise.reject(response.data)
     }
   },
   (error) => {

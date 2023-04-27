@@ -4,7 +4,7 @@ export interface category {
   name: string        // 类别名称
   keywords: string    // 关键字
   url: string         // url
-  enable: boolean     // 是否启用
+  enable: number     // 是否启用
   comments: string    // 描述
   createdAt: string   // 创建时间
   updatedAt: string   // 更新时间

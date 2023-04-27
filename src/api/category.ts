@@ -1,4 +1,5 @@
 import service from "@/utils/service"
+import type { category } from '@/types/category'
 
 // 获取所有类别
 export function getCategoryList() {
@@ -9,10 +10,11 @@ export function getCategoryList() {
 }
 
 // 新增类别
-export function addCategory() {
+export function addCategory(data: category) {
   return service({
     url: '/contentCategory/add',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
 
