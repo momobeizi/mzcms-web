@@ -9,3 +9,7 @@ export interface category {
   createdAt: string   // 创建时间
   updatedAt: string   // 更新时间
 }
+
+export interface categoryId {
+  id: string // 分类id
+}
