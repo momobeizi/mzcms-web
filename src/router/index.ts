@@ -25,8 +25,46 @@ const router = createRouter({
         component: () => import('@/views/dashboard/index.vue'),
         name: 'dashboard',
         meta: {
-          title: 'Dashboard',
+          title: '首页',
           icon: 'dashboard'
+        }
+      }]
+    },
+    {
+      path: '/article',
+      component: () => import('@/views/layout/index.vue'),
+      meta: {
+        title: '内容管理',
+        icon: 'wdfl'
+      },
+      redirect: {
+        name: 'articleManage',
+      },
+      children: [{
+        path: '/articleManage',
+        component: () => import('@/views/articleManage/index.vue'),
+        name: 'articleManage',
+        meta: {
+          title: '文章列表',
+          icon: 'wdfl'
+        }
+      },
+      {
+        path: '/comment',
+        component: () => import('@/views/articleManage/comment.vue'),
+        name: 'comment',
+        meta: {
+          title: '评论管理',
+          icon: 'wdfl'
+        }
+      },
+      {
+        path: '/classification',
+        component: () => import('@/views/articleManage/classification.vue'),
+        name: 'classification',
+        meta: {
+          title: '分类管理',
+          icon: 'wdfl'
         }
       }]
     },
