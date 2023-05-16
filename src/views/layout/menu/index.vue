@@ -1,5 +1,5 @@
 <template>
-   <el-menu router :default-active="currentPath" class="mz-menu" active-text-color="#ffd04b" background-color="#0c3d83"
+   <el-menu router :default-active="currentPath" class="mz-menu" active-text-color="#ffd04b" background-color="#292d32"
       text-color="#fff" :collapse="!system.menuStatus" @open="handleOpen" @close="handleClose">
       <menu-item :route="route" v-for="(route, index) in routes" :key="index"></menu-item>
    </el-menu>

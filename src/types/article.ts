@@ -14,6 +14,6 @@ export interface article {
   updatedAt: string   // 更新时间
 }
 
-export interface categoryId {
-  id: string // 分类id
+export interface articleId {
+  id: string // 文章id
 }

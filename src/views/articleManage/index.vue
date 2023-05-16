@@ -3,7 +3,7 @@
   <div class="article-container">
     <search>
       <template v-slot:searchBtns>
-        <el-button type="primary">新增</el-button>
+        <el-button type="primary" @click="updateArticle()">新增</el-button>
       </template>
     </search>
     <el-table :data="state.list" border stripe style="width: 100%">
@@ -30,17 +30,27 @@
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import { getArticleList } from '@/api/article';
+import { useRouter } from 'vue-router'
+
+
+const router = useRouter()
 
 const state = reactive({
   list: []
 });
 
-// 获取类别列表
+// 获取文章列表
 const getList = () => {
   getArticleList().then(res => {
     state.list = res.data
   })
 }
 getList()
+
+// 编辑文章
+const updateArticle = (id?: string) => {
+  console.log(id)
+  router.push({ name: 'updateArticle', query: { id } })
+}
 </script>
 <style></style>

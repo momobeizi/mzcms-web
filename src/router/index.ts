@@ -35,7 +35,7 @@ const router = createRouter({
       component: () => import('@/views/layout/index.vue'),
       meta: {
         title: '内容管理',
-        icon: 'wdfl'
+        icon: 'neirongguanli'
       },
       redirect: {
         name: 'articleManage',
@@ -46,7 +46,7 @@ const router = createRouter({
         name: 'articleManage',
         meta: {
           title: '文章列表',
-          icon: 'wdfl'
+          icon: 'wenzhangliebiao'
         }
       },
       {
@@ -55,7 +55,7 @@ const router = createRouter({
         name: 'comment',
         meta: {
           title: '评论管理',
-          icon: 'wdfl'
+          icon: 'pinglunguanli'
         }
       },
       {
@@ -64,16 +64,27 @@ const router = createRouter({
         name: 'classification',
         meta: {
           title: '分类管理',
-          icon: 'wdfl'
+          icon: 'fenleiliebiao'
         }
-      }]
+      },
+      {
+        path: '/updateArticle',
+        component: () => import('@/views/articleManage/updateArticle.vue'),
+        name: 'updateArticle',
+        meta: {
+          title: '更新文章',
+          icon: 'wdfl',
+          hidden: true
+        }
+      }
+      ]
     },
     {
       path: '/category',
       component: () => import('@/views/layout/index.vue'),
       meta: {
         title: '栏目管理',
-        icon: 'wdfl'
+        icon: 'leibie'
       },
       redirect: {
         name: 'categoryManage',
