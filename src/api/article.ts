@@ -8,3 +8,21 @@ export function getArticleList() {
     method: 'post'
   })
 }
+
+// 添加文章
+export function addArticle(data: any) {
+  return service({
+    url: '/content/add',
+    method: 'post',
+    data
+  })
+}
+
+// 编辑文章
+export function editArticle(data: any) {
+  return service({
+    url: '/content/edit',
+    method: 'post',
+    data
+  })
+}
