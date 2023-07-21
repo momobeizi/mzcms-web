@@ -5,7 +5,11 @@
         <el-input v-model="articleSubmit.title" />
       </el-form-item>
       <el-form-item class="article-item" label="状态" prop="status">
-        <el-switch v-model="articleSubmit.status" />
+        <el-radio-group v-model="articleSubmit.status">0:草稿，1:已发布,2:撤回
+          <el-radio-button :label="0">草稿</el-radio-button>
+          <el-radio-button :label="1">已发布</el-radio-button>
+          <el-radio-button :label="2">撤回</el-radio-button>
+        </el-radio-group>
       </el-form-item>
       <el-form-item class="article-item" label="封面" prop="imgUrl">
         <el-upload class="avatar-uploader" action="#" :show-file-list="false" :before-upload="beforeAvatarUpload">
@@ -62,8 +66,8 @@ let articleSubmit = ref<article>({
   imgUrl: '',
   keywords: '',
   url: '',
+  status: 0,
   content: '1',
-  enable: 0,
   comments: '',
   createdAt: '',
   updatedAt: ''
