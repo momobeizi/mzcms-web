@@ -1,18 +1,21 @@
 <template>
   <div class="mz-header">
-    <!-- <div :class="[systemStore.menuStatus?'mz-header-logo':'mz-header-small-logo']">
-      <img v-if="systemStore.menuStatus" src="./imgs/logo-mini.png" alt="">
-      <img v-else src="./imgs/logo-small.png" alt="">
-    </div> -->
     <el-icon class="menu-icon">
-      <Expand v-if="systemStore.menuStatus" @click="changeMenuStatus()" />
+      <Expand v-if="!systemStore.menuStatus" @click="changeMenuStatus()" />
       <Fold v-else @click="changeMenuStatus()" />
     </el-icon>
     <div class="mz-header-right">
-      <div class="avatar-icon">
-        <img src="./imgs/avatar.png" alt="">
-      </div>
-      <svg-icon @click="exit" class="exit-icon" name="tuichu"></svg-icon>
+      <el-dropdown>
+        <div class="avatar-icon">
+          <img :src="userStore.userInfo.picture" alt="">
+        </div>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item @click="setUserInfo">用户信息</el-dropdown-item>
+            <el-dropdown-item divided @click="exit">退出登陆</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
   </div>
 </template>
@@ -31,6 +34,10 @@ const userStore = useUserStore()
 
 const changeMenuStatus = () => {
   systemStore.changeMenuStatus(!systemStore.menuStatus)
+}
+// 设置用户信息
+const setUserInfo = () => {
+  router.push({ name: 'account' })
 }
 
 // 退出
@@ -98,10 +105,8 @@ const exit = () => {
     .avatar-icon {
       width: 40px;
       height: 40px;
-      padding: 4px;
       border: 1px solid #dadada;
       border-radius: 50%;
-
       margin-right: 16px;
       img {
         width: 100%;

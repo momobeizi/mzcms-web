@@ -128,6 +128,26 @@ const router = createRouter({
         hidden: true
       },
       component: () => import('@/views/login/index.vue')
+    },
+    {
+      path: '/account',
+      name: 'account',
+      redirect: {
+        name: 'accountBasic'
+      },
+      meta: {
+        title: '用户中心',
+        hidden: true
+      },
+      component: () => import('@/views/layout/index.vue'),
+      children: [{
+        path: '/basic',
+        component: () => import('@/views/account/basic.vue'),
+        name: 'accountBasic',
+        meta: {
+          title: '基本设置',
+        }
+      }]
     }
   ]
 })

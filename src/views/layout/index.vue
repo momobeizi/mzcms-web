@@ -32,7 +32,7 @@ const system = useSystemStore()
     height: calc(100% - 60px);
 
     .mz-content {
-      margin: 16px;
+      margin: 24px;
       width: 100%;
     }
   }
