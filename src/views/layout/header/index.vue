@@ -1,18 +1,16 @@
 <template>
   <div class="mz-header">
-    <!-- <div :class="[system.menuStatus?'mz-header-logo':'mz-header-small-logo']">
-      <img v-if="system.menuStatus" src="./imgs/logo-mini.png" alt="">
+    <!-- <div :class="[systemStore.menuStatus?'mz-header-logo':'mz-header-small-logo']">
+      <img v-if="systemStore.menuStatus" src="./imgs/logo-mini.png" alt="">
       <img v-else src="./imgs/logo-small.png" alt="">
     </div> -->
     <el-icon class="menu-icon">
-      <Expand v-if="system.menuStatus" @click="changeMenuStatus()" />
+      <Expand v-if="systemStore.menuStatus" @click="changeMenuStatus()" />
       <Fold v-else @click="changeMenuStatus()" />
     </el-icon>
     <div class="mz-header-right">
       <div class="avatar-icon">
-        <el-avatar>
-          <img src="./imgs/avatar.png" alt="">
-        </el-avatar>
+        <img src="./imgs/avatar.png" alt="">
       </div>
       <svg-icon @click="exit" class="exit-icon" name="tuichu"></svg-icon>
     </div>
@@ -23,10 +21,16 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { Action } from 'element-plus'
 import { useSystemStore } from '@/stores/system'
-const system = useSystemStore()
+import { useUserStore } from '@/stores/user'
+import { logout } from '@/api/login'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const systemStore = useSystemStore()
+const userStore = useUserStore()
 
 const changeMenuStatus = () => {
-  system.changeMenuStatus(!system.menuStatus)
+  systemStore.changeMenuStatus(!systemStore.menuStatus)
 }
 
 // 退出
@@ -35,10 +39,16 @@ const exit = () => {
     autofocus: false,
     confirmButtonText: '确认',
     callback: (action: Action) => {
-      ElMessage({
-        type: 'info',
-        message: `action: ${action}`
-      })
+      if (action === 'confirm') {
+        logout().then(() => {
+          userStore.clearUserInfo()
+          router.push({ name: 'login' })
+          ElMessage({
+            type: 'success',
+            message: '退出成功'
+          })
+        })
+      }
     }
   })
 }
@@ -88,10 +98,15 @@ const exit = () => {
     .avatar-icon {
       width: 40px;
       height: 40px;
+      padding: 4px;
+      border: 1px solid #dadada;
+      border-radius: 50%;
+
       margin-right: 16px;
       img {
         width: 100%;
         height: 100%;
+        border-radius: 50%;
       }
     }
     .exit-icon {

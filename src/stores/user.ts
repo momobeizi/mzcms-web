@@ -12,6 +12,7 @@ export const useUserStore = defineStore({
         }
     }),
     actions: {
+        // 获取用户信息
         getUserInfo() {
             return new Promise((resolve, reject) => {
                 getUserInfo().then(res => {
@@ -21,6 +22,10 @@ export const useUserStore = defineStore({
                     resolve(res)
                 })
             })
+        },
+        // 清除用户信息
+        clearUserInfo() {
+            this.$patch({ userInfo: {} })
         }
     }
 }
