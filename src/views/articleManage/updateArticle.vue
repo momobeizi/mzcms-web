@@ -1,18 +1,30 @@
 <template>
   <div class="update-article">
-    <el-form ref="articleForm" :model="articleSubmit" :rules="articleRules" label-width="80px" status-icon>
+    <el-form
+      ref="articleForm"
+      :model="articleSubmit"
+      :rules="articleRules"
+      label-width="80px"
+      status-icon
+    >
       <el-form-item class="article-item" label="标题" prop="title">
         <el-input v-model="articleSubmit.title" />
       </el-form-item>
       <el-form-item class="article-item" label="状态" prop="status">
-        <el-radio-group v-model="articleSubmit.status">0:草稿，1:已发布,2:撤回
+        <el-radio-group v-model="articleSubmit.status"
+          >0:草稿，1:已发布,2:撤回
           <el-radio-button :label="0">草稿</el-radio-button>
           <el-radio-button :label="1">已发布</el-radio-button>
           <el-radio-button :label="2">撤回</el-radio-button>
         </el-radio-group>
       </el-form-item>
       <el-form-item class="article-item" label="封面" prop="imgUrl">
-        <el-upload class="avatar-uploader" action="#" :show-file-list="false" :before-upload="beforeAvatarUpload">
+        <el-upload
+          class="avatar-uploader"
+          action="#"
+          :show-file-list="false"
+          :before-upload="beforeAvatarUpload"
+        >
           <img v-if="articleSubmit.imgUrl" :src="articleSubmit.imgUrl" class="avatar" />
           <el-icon v-else class="avatar-uploader-icon">
             <Plus />
@@ -31,7 +43,7 @@
       <el-form-item label="内容描述" prop="content">
         <el-tabs type="border-card" class="article-tabs">
           <el-tab-pane label="MarkDown">
-            <MdEditor v-model="articleSubmit.content" />
+              <MdEditor v-model="articleSubmit.content" previewTheme="github"/>
           </el-tab-pane>
           <el-tab-pane label="Html">敬请期待</el-tab-pane>
         </el-tabs>
@@ -47,11 +59,10 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import type { article } from '@/types/article'
-import { Check, Close } from '@element-plus/icons-vue'
 import type { FormInstance, FormRules, Action } from 'element-plus'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { MdEditor } from 'md-editor-v3'
-import 'md-editor-v3/lib/style.css'
+import { MdEditor } from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
 import { addArticle, editArticle } from '@/api/article'
 import { uploadFile } from '@/api/common'
 import { useRouter } from 'vue-router'

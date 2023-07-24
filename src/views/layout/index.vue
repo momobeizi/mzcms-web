@@ -33,6 +33,7 @@ const system = useSystemStore()
 
     .mz-content {
       margin: 24px;
+      overflow-y: auto;
     }
   }
 }
