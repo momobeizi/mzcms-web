@@ -18,6 +18,16 @@
           <el-radio-button :label="2">撤回</el-radio-button>
         </el-radio-group>
       </el-form-item>
+      <el-form-item class="article-item" label="类别" prop="parentId">
+        <el-select v-model="state.editSubmit.parentId" placeholder="请选择类别" size="large">
+          <el-option
+            v-for="item in state.list"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item class="article-item" label="封面" prop="imgUrl">
         <el-upload
           class="avatar-uploader"
@@ -43,7 +53,7 @@
       <el-form-item label="内容描述" prop="content">
         <el-tabs type="border-card" class="article-tabs">
           <el-tab-pane label="MarkDown">
-              <MdEditor v-model="articleSubmit.content" previewTheme="github"/>
+            <MdEditor v-model="articleSubmit.content" previewTheme="github" />
           </el-tab-pane>
           <el-tab-pane label="Html">敬请期待</el-tab-pane>
         </el-tabs>
@@ -61,8 +71,8 @@ import { ref, reactive } from 'vue'
 import type { article } from '@/types/article'
 import type { FormInstance, FormRules, Action } from 'element-plus'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { MdEditor } from 'md-editor-v3';
-import 'md-editor-v3/lib/style.css';
+import { MdEditor } from 'md-editor-v3'
+import 'md-editor-v3/lib/style.css'
 import { addArticle, editArticle } from '@/api/article'
 import { uploadFile } from '@/api/common'
 import { useRouter } from 'vue-router'
