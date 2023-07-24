@@ -20,3 +20,12 @@ export function uploadFile(data: any) {
   })
 }
 
+// 更新用户信息
+export function updateUserInfo(data: any) {
+  return service({
+    url: '/user/changeInfo',
+    method: 'post',
+    data
+  })
+}
+
