@@ -22,10 +22,10 @@
     <el-dialog v-model="state.editVisible" title="新增类别" width="50%">
       <div class="edit-content">
         <el-form ref="editCategory" :model="state.editSubmit" label-width="80px" status-icon>
-          <el-form-item class="category-item" label="类别" prop="name">
+          <el-form-item class="dialog-item" label="类别" prop="name">
             <el-input v-model="state.editSubmit.name" />
           </el-form-item>
-          <el-form-item class="category-item" label="父级" prop="parentId">
+          <el-form-item class="dialog-item" label="父级" prop="parentId">
             <el-select v-model="state.editSubmit.parentId" placeholder="请选择父级" size="large">
               <el-option label="顶级" value="0"></el-option>
               <el-option
@@ -36,16 +36,16 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item class="category-item" label="关键字" prop="keywords">
+          <el-form-item class="dialog-item" label="关键字" prop="keywords">
             <el-input v-model="state.editSubmit.keywords" />
           </el-form-item>
-          <el-form-item class="category-item" label="是否启用" prop="enable">
+          <el-form-item class="dialog-item" label="是否启用" prop="enable">
             <el-radio-group v-model="state.editSubmit.enable">
               <el-radio :label="0" size="large">停用</el-radio>
               <el-radio :label="1" size="large">启用</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item class="category-item" label="备注" prop="comments">
+          <el-form-item class="dialog-item" label="备注" prop="comments">
             <el-input v-model="state.editSubmit.comments" />
           </el-form-item>
         </el-form>
@@ -101,8 +101,6 @@ const save = () => {
 </script>
 <style lang="scss" scoped>
 .category-container {
-  .category-item {
-    width: 300px;
-  }
+
 }
 </style>

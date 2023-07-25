@@ -141,8 +141,4 @@ const categoryDelete = (id?: string) => {
 .article-container {
   padding: 24px;
 }
-.pagination {
-  margin-top: 10px;
-  float: right;
-}
 </style>

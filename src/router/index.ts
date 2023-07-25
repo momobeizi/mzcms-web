@@ -100,6 +100,26 @@ const router = createRouter({
       }]
     },
     {
+      path: '/user',
+      component: () => import('@/views/layout/index.vue'),
+      meta: {
+        title: '用户管理',
+        icon: 'yonghuguanli'
+      },
+      redirect: {
+        name: 'userManage',
+      },
+      children: [{
+        path: '/userManage',
+        component: () => import('@/views/userManage/index.vue'),
+        name: 'userManage',
+        meta: {
+          title: '用户管理',
+          icon: 'yonghuguanli'
+        }
+      }]
+    },
+    {
       path: '/system',
       component: () => import('@/views/layout/index.vue'),
       meta: {

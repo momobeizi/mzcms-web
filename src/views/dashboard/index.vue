@@ -12,6 +12,7 @@
 </script>
 <style lang="scss" scoped>
 .dashboard {
+  padding: 24px;
   &-item {
     &-title {
       display: block;
