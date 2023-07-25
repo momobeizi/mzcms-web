@@ -11,20 +11,19 @@
         <el-input v-model="articleSubmit.title" />
       </el-form-item>
       <el-form-item class="article-item" label="状态" prop="status">
-        <el-radio-group v-model="articleSubmit.status"
-          >0:草稿，1:已发布,2:撤回
+        <el-radio-group v-model="articleSubmit.status">
           <el-radio-button :label="0">草稿</el-radio-button>
           <el-radio-button :label="1">已发布</el-radio-button>
           <el-radio-button :label="2">撤回</el-radio-button>
         </el-radio-group>
       </el-form-item>
-      <el-form-item class="article-item" label="类别" prop="parentId">
-        <el-select v-model="state.editSubmit.parentId" placeholder="请选择类别" size="large">
+      <el-form-item class="article-item" label="类别" prop="contentCategory">
+        <el-select v-model="articleSubmit.contentCategory" placeholder="请选择类别" size="large">
           <el-option
             v-for="item in state.list"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            :key="item.id.toString()"
+            :label="item.name"
+            :value="item.id.toString()"
           />
         </el-select>
       </el-form-item>
@@ -44,18 +43,24 @@
       <el-form-item class="article-item" label="内容摘要" prop="abstract">
         <el-input v-model="articleSubmit.abstract" />
       </el-form-item>
-      <el-form-item class="article-item" label="备注" prop="comments">
-        <el-input v-model="articleSubmit.comments" />
+      <el-form-item class="article-item" label="阅读量" prop="title">
+        <el-input v-model="articleSubmit.readNum" />
       </el-form-item>
-      <el-form-item class="article-item" label="url" prop="url">
-        <el-input v-model="articleSubmit.url" />
+      <el-form-item class="article-item" label="标签" prop="label">
+        <el-input v-model="articleSubmit.label" />
+      </el-form-item>
+      <el-form-item class="article-item" label="是否推荐" prop="recommend">
+        <el-radio-group v-model="articleSubmit.recommend">
+          <el-radio label="0" size="large">否</el-radio>
+          <el-radio label="1" size="large">是</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="内容描述" prop="content">
-        <el-tabs type="border-card" class="article-tabs">
-          <el-tab-pane label="MarkDown">
+        <el-tabs type="border-card" class="article-tabs" v-model="articleSubmit.contentType">
+          <el-tab-pane label="MarkDown" name="MarkDown">
             <MdEditor v-model="articleSubmit.content" previewTheme="github" />
           </el-tab-pane>
-          <el-tab-pane label="Html">敬请期待</el-tab-pane>
+          <el-tab-pane label="Html" name="Html">敬请期待</el-tab-pane>
         </el-tabs>
       </el-form-item>
       <el-form-item>
@@ -69,15 +74,17 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import type { article } from '@/types/article'
-import type { FormInstance, FormRules, Action } from 'element-plus'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { MdEditor } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
-import { addArticle, editArticle } from '@/api/article'
+import { addArticle, editArticle, findOneArticle } from '@/api/article'
+import { getCategoryList } from '@/api/category'
 import { uploadFile } from '@/api/common'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 const state = reactive({
   list: []
 })
@@ -86,12 +93,14 @@ let articleSubmit = ref<article>({
   title: '',
   imgUrl: '',
   keywords: '',
-  url: '',
   status: 0,
+  contentCategory: '',
   content: '1',
-  comments: '',
+  recommend: '0',
+  label: '',
   createdAt: '',
-  updatedAt: ''
+  updatedAt: '',
+  contentType: 'MarkDown'
 })
 const articleForm = ref<FormInstance>()
 const articleRules = reactive<FormRules>({
@@ -99,11 +108,30 @@ const articleRules = reactive<FormRules>({
   imgUrl: [{ required: true, message: '请上传图片', trigger: 'change' }],
   keywords: [{ required: true, message: '请输入关键字', trigger: 'blur' }],
   abstract: [{ required: true, message: '请输入内容摘要', trigger: 'blur' }],
-  url: [{ required: true, message: '请输入url', trigger: 'blur' }],
-  comments: [{ required: true, message: '请输入备注', trigger: 'blur' }],
   content: [{ required: true, message: '请输入文章内容', trigger: 'blur' }]
 })
 
+// 获取地址栏参数
+const id = ref(route.query.id)
+
+// 获取文章信息
+const getArticleInfo = async () => {
+  findOneArticle({ id: id.value }).then((res) => {
+    console.log(res)
+    articleSubmit.value = Object.assign(articleSubmit.value, res.data)
+  })
+}
+getArticleInfo()
+
+// 获取类别列表
+const getCategoryLists = () => {
+  getCategoryList().then((res) => {
+    state.list = res.data
+  })
+}
+getCategoryLists()
+
+// 表单提交
 // 上传图片
 const beforeAvatarUpload = (file: File) => {
   const isJPG = file.type === 'image/jpeg'
@@ -134,13 +162,11 @@ const save = () => {
   articleForm.value?.validate(async (valid) => {
     if (valid) {
       let articleAjax = articleSubmit.value.id ? editArticle : addArticle
+      articleSubmit.value.status = articleSubmit.value.status.toString()
       articleAjax(articleSubmit.value)
         .then(() => {
           ElMessage.success('保存成功')
           router.go(-1)
-        })
-        .catch((err) => {
-          ElMessage.error(err.msg || '保存失败')
         })
     } else {
       ElMessage.error('请检查输入内容')
@@ -152,6 +178,9 @@ const save = () => {
 
 <style lang="scss" scoped>
 .update-article {
+  padding: 24px 0;
+  height: 100%;
+  overflow-y: auto;
   .article-item {
     width: 380px;
   }

@@ -1,5 +1,5 @@
 <template>
-    <div class="search-container">
+    <div>
         <slot name="searchList"></slot>
         <slot name="searchBtns"></slot>
     </div>
@@ -17,8 +17,6 @@ const { name } = toRefs(props)
 </script>
   
 <style lang="scss" scoped>
-.search-container {
-    padding: 16px 0;
-}
+
 </style>
   

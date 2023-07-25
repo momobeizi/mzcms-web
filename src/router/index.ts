@@ -58,15 +58,15 @@ const router = createRouter({
           icon: 'pinglunguanli'
         }
       },
-      {
-        path: '/classification',
-        component: () => import('@/views/articleManage/classification.vue'),
-        name: 'classification',
-        meta: {
-          title: '分类管理',
-          icon: 'fenleiliebiao'
-        }
-      },
+      // {
+      //   path: '/classification',
+      //   component: () => import('@/views/articleManage/classification.vue'),
+      //   name: 'classification',
+      //   meta: {
+      //     title: '分类管理',
+      //     icon: 'fenleiliebiao'
+      //   }
+      // },
       {
         path: '/updateArticle',
         component: () => import('@/views/articleManage/updateArticle.vue'),

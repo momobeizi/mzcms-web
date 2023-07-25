@@ -29,11 +29,11 @@ const system = useSystemStore()
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: calc(100% - 60px);
+    height: 100%;
 
     .mz-content {
-      margin: 24px;
-      overflow-y: auto;
+      height: 100%;
+      overflow: hidden;
     }
   }
 }

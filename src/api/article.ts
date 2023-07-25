@@ -1,5 +1,4 @@
 import service from "@/utils/service"
-import type { category, categoryId } from '@/types/category'
 
 // 获取文章列表
 export function getArticleList(data: any) {
@@ -23,6 +22,24 @@ export function addArticle(data: any) {
 export function editArticle(data: any) {
   return service({
     url: '/content/edit',
+    method: 'post',
+    data
+  })
+}
+
+// 删除文章
+export function deleteArticle(data: any) {
+  return service({
+    url: '/content/delete',
+    method: 'post',
+    data
+  })
+}
+
+// 获取单条文章数据
+export function findOneArticle(data: any) {
+  return service({
+    url: '/content/findOne',
     method: 'post',
     data
   })
