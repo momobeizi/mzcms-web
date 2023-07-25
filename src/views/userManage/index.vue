@@ -29,6 +29,7 @@
         <template #default="scope">
           <el-tag v-if="scope.row.gender === '1'" type="success">男</el-tag>
           <el-tag v-if="scope.row.gender === '2'" type="danger">女</el-tag>
+          <el-tag v-if="scope.row.gender === '3'">保密</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作">
@@ -85,7 +86,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="editVisible = false">取消</el-button>
-          <el-button type="primary" @click="save" :loading="saveLoading">保存</el-button>
+          <el-button type="primary" @click="save(submitData.id)" :loading="saveLoading">保存</el-button>
         </span>
       </template>
     </el-dialog>
@@ -170,6 +171,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (file) => {
 // 保存用户信息
 const save = (id?: string) => {
   saveLoading.value = true
+  console.log(id)
   let Ajax = id ? editUserInfo : addUserInfo
   Ajax(submitData)
     .then(() => {
