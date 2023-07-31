@@ -120,6 +120,26 @@ const router = createRouter({
       }]
     },
     {
+      path: '/friendlyLinks',
+      component: () => import('@/views/layout/index.vue'),
+      meta: {
+        title: '友情链接',
+        icon: 'youqinglianjie'
+      },
+      redirect: {
+        name: 'friendlyLinksManage',
+      },
+      children: [{
+        path: '/friendlyLinksManage',
+        component: () => import('@/views/friendlyLinks/index.vue'),
+        name: 'friendlyLinksManage',
+        meta: {
+          title: '友情链接',
+          icon: 'youqinglianjie'
+        }
+      }]
+    },
+    {
       path: '/system',
       component: () => import('@/views/layout/index.vue'),
       meta: {

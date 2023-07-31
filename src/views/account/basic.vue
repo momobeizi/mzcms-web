@@ -90,6 +90,7 @@ const save = () => {
 </script>
 <style lang="scss" scoped>
 .account-basic {
+  padding: 24px;
   .basic-title {
     color: rgba(0, 0, 0, 0.85);
     font-size: 20px;
