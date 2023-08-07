@@ -20,13 +20,22 @@
     <el-table :data="state.list" border stripe style="width: 100%" height="650">
       <el-table-column prop="linkName" label="链接名称" />
       <el-table-column prop="linkUrl" label="链接地址" />
-      <el-table-column prop="approved" label="审批状态" />
-      <el-table-column prop="linkSort" label="友链排序" />
+      <el-table-column prop="approved" label="审批状态">
+        <template #default="scope">
+          <el-tag v-if="scope.row.approved === 1" type="success">已审批</el-tag>
+          <el-tag v-else type="danger">未审批</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="linkSort" label="友链排序">
+        <template #default="scope">
+          <el-tag>{{ scope.row.linkSort }}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column prop="remarks" label="友链备注" />
       <el-table-column label="操作">
         <template #default="scope">
-          <el-button type="primary" @click="updateUser(scope.row.id)">修改</el-button>
-          <el-button type="primary" @click="userDelete(scope.row.id)">删除</el-button>
+          <el-button type="primary" @click="update(scope.row.id)">修改</el-button>
+          <el-button type="primary" @click="del(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -48,13 +57,16 @@
             <el-input v-model="submitData.linkName" placeholder="请输入链接名称" />
           </el-form-item>
           <el-form-item class="dialog-item" label="链接地址" prop="linkUrl">
-            <el-input v-model="submitData.linkUrl" placeholder="请输入昵称" />
+            <el-input v-model="submitData.linkUrl" placeholder="https://www.baidu.com" />
           </el-form-item>
           <el-form-item class="dialog-item" label="审批状态" prop="approved">
-            <el-input v-model="submitData.approved" placeholder="请输入昵称" />
+            <el-radio-group v-model="submitData.approved">
+              <el-radio :label="0">未审核</el-radio>
+              <el-radio :label="1">已审核</el-radio>
+            </el-radio-group>
           </el-form-item>
           <el-form-item class="dialog-item" label="友链排序" prop="linkSort">
-            <el-input v-model="submitData.linkSort" placeholder="请输入昵称" />
+            <el-input v-model="submitData.linkSort" placeholder="请输入友链排序1-999" />
           </el-form-item>
           <el-form-item class="dialog-item" label="友链备注" prop="remarks">
             <el-input v-model="submitData.remarks" placeholder="请输入友链备注" />
@@ -76,9 +88,8 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import type { UploadProps } from 'element-plus'
 import { useRouter } from 'vue-router'
-import { getLinkList, deleteLink, editLink, addLink } from '@/api/friendlyLinks'
+import { getLinkList, deleteLink, editLink, addLink, getLink } from '@/api/friendlyLinks'
 
 const router = useRouter()
 const state = reactive({
@@ -93,11 +104,12 @@ const state = reactive({
 })
 let editVisible = ref(false)
 let saveLoading = ref(false)
-let submitData = reactive({
-  userName: '',
-  nickName: '',
-  picture: '',
-  gender: '1'
+let submitData = ref({
+  linkName: '',
+  linkUrl: '',
+  approved: 0,
+  linkSort: '',
+  remarks: ''
 })
 
 // 获取用户列表
@@ -125,46 +137,25 @@ const pageSizeChange = (pageSize) => {
   getList()
 }
 
-// 上传头像
-const beforeAvatarUpload: UploadProps['beforeUpload'] = (file) => {
-  let imgType = ['image/jpg', 'image/jpeg', 'image/png']
-  if (!imgType.includes(file.type)) {
-    ElMessage.error('请上传jpg,jpeg,png类型的图片')
-    return false
-  } else if (file.size / 1024 / 1024 > 2) {
-    ElMessage.error('图片大小不能超过 2MB!')
-    return false
-  }
-  let fileSubmit = new FormData()
-  fileSubmit.append('file', file)
-  uploadFile(fileSubmit)
-    .then((res) => {
-      submitData.picture = res.data
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  return false
-}
-
-// 保存用户信息
+// 保存友链
 const save = (id?: string) => {
   saveLoading.value = true
   console.log(id)
   let Ajax = id ? editLink : addLink
-  Ajax(submitData)
+  Ajax(submitData.value)
     .then(() => {
       getList()
       ElMessage.success('保存成功')
     })
     .finally(() => {
+      editVisible.value = false
       saveLoading.value = false
     })
 }
 
-// 删除用户
-const userDelete = (id?: string) => {
-  ElMessageBox.confirm('是否删除当前用户?', '提示', {
+// 删除链接
+const del = (id?: string) => {
+  ElMessageBox.confirm('是否删除当前链接?', '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning'
@@ -184,6 +175,14 @@ const userDelete = (id?: string) => {
         message: '删除已取消'
       })
     })
+}
+
+// 编辑链接
+const update = (id?: string) => {
+  getLink({ id }).then((res) => {
+    submitData.value = res.data
+    editVisible.value = true
+  })
 }
 </script>
 <style lang="scss" scoped>

@@ -21,7 +21,7 @@ export function deleteLink(data: any) {
 // 添加
 export function addLink(data: any) {
   return service({
-    url: '/friendlyLinks/addLink',
+    url: '/friendlyLinks/add',
     method: 'post',
     data
   })
@@ -30,7 +30,16 @@ export function addLink(data: any) {
 // 编辑
 export function editLink(data: any) {
   return service({
-    url: '/friendlyLinks/editLink',
+    url: '/friendlyLinks/edit',
+    method: 'post',
+    data
+  })
+}
+
+// 获取
+export function getLink(data: any) {
+  return service({
+    url: '/friendlyLinks/findOne',
     method: 'post',
     data
   })
