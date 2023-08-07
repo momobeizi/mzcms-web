@@ -1,9 +1,19 @@
-
 <template>
-  <div class="article-container">
-    <search>
+  <div class="comment-container">
+    <search class="search-container">
+      <template v-slot:searchList>
+        <div class="search-inputs">
+          <!-- <el-input
+            class="search-input"
+            placeholder="请输入友链接名称"
+            v-model="state.submit.linkName"
+          /> -->
+        </div>
+      </template>
       <template v-slot:searchBtns>
-        <el-button type="primary" @click="addVisible = true">新增</el-button>
+        <div class="search-buttons">
+          <!-- <el-button type="primary" :loading="state.searchLoading" @click="getList">搜索</el-button> -->
+        </div>
       </template>
     </search>
     <el-table :data="state.list" border stripe style="width: 100%">
@@ -24,18 +34,22 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-import { getArticleList } from '@/api/article';
+import { getArticleList } from '@/api/article'
 
 const state = reactive({
   list: []
-});
+})
 
 // 获取类别列表
 const getList = () => {
-  getArticleList().then(res => {
+  getArticleList().then((res) => {
     state.list = res.data
   })
 }
 getList()
 </script>
-<style></style>
+<style lang="scss">
+.comment-container {
+  padding: 24px;
+}
+</style>

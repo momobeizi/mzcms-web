@@ -50,12 +50,14 @@
           <el-form-item class="dialog-item" label="链接地址" prop="linkUrl">
             <el-input v-model="submitData.linkUrl" placeholder="请输入昵称" />
           </el-form-item>
-          <el-form-item class="dialog-item" label="性别" prop="name">
-            <el-radio-group v-model="submitData.gender">
-              <el-radio label="1">男</el-radio>
-              <el-radio label="2">女</el-radio>
-              <el-radio label="3">保密</el-radio>
-            </el-radio-group>
+          <el-form-item class="dialog-item" label="审批状态" prop="approved">
+            <el-input v-model="submitData.approved" placeholder="请输入昵称" />
+          </el-form-item>
+          <el-form-item class="dialog-item" label="友链排序" prop="linkSort">
+            <el-input v-model="submitData.linkSort" placeholder="请输入昵称" />
+          </el-form-item>
+          <el-form-item class="dialog-item" label="友链备注" prop="remarks">
+            <el-input v-model="submitData.remarks" placeholder="请输入友链备注" />
           </el-form-item>
         </el-form>
       </div>
@@ -76,8 +78,7 @@ import { reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { UploadProps } from 'element-plus'
 import { useRouter } from 'vue-router'
-import { getLinkList, deleteLink, editLink, addLink } from '@/api/user'
-import { uploadFile } from '@/api/common'
+import { getLinkList, deleteLink, editLink, addLink } from '@/api/friendlyLinks'
 
 const router = useRouter()
 const state = reactive({
